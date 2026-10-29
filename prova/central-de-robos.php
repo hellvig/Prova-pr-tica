@@ -2,19 +2,65 @@
 
     session_start();
 
-    abstract class robo {
+    class robo {
         public $nome;
         public $modelo;
         public $energia;
         public $potencia;
         public $funcao;
+        public $operador;
+        public $id;
+        public $contador;
 
-        function __construct() {
-        $this->nome = "";
-        $this->energia = 0;
-        $this->potencia = 0;
+        public function __construct($nome, $modelo, $operador, $energia = null, $id = null){
+            $configuracoes = [
+                "explorador" => [
+                    "energia" => 100,
+                    "potencia" => 20
+                ],
+                "engenheiro" => [
+                    "energia" => 120,
+                    "potencia" => 15
+                ],
+                "defensor" => [
+                    "energia" => 150,
+                    "potencia" => 30
+                ]
+            ];
+
+            if(!isset($configuracoes[$modelo])){
+                throw new InvalidArgumentException("modelo invalido.");
+            }
+
+            $this->nome = $nome;
+            $this->modelo = $operador;
+
+            $this->energia = $energia ?? $configuracoes[$modelo]["energia"];
+            $this->potencia = $configuracoes[$modelo]["potencia"];
         }
+
+    public function exibirStatus() {
+        return "Nome: " . $this->nome .
+            " | Modelo: " . $this->modelo .
+            " | Energia: " . $this->energia .
+            " | Potência: " . $this->potencia;
+            }
+
+            public function recarregar() {
+        $this->energia = min(200, $this->energia + 10);
     }
+
+    public function paraArray() {
+        return [
+            "id" => $this->id,
+            "nome" => $this->nome,
+            "modelo" => $this->modelo,
+            "energia" => $this->energia,
+            "potencia" => $this->potencia,
+            "operador" => $this->operador
+        ];
+    }
+}
 
 
 
@@ -31,7 +77,7 @@
         public function recarregar() {
             $this->energia += 10;
             $this->contador += 1;
-            return $energia
+            return $energia;
         }
     }
 
@@ -50,7 +96,7 @@
         public function recarregar() {
             $this->energia += 10;
             $this->contador += 1;
-            return $energia
+            return $energia;
         }
     }
 
@@ -68,28 +114,34 @@
         public function recarregar() {
             $this->energia += 10;
             $this->contador += 1;
-            return $energia
+            return $energia;
         }
     }
 
+    $robo = new explorador (100,20);
+    $robo = new engenheiro (120,15);
+    $robo = new defensor (150,30);
+    htmlspecialchars (
+
+    );
 
 
-    if($_SERVER === $_POST['REQUEST_METHOD'])
+    if($_SERVER ['REQUEST_METHOD'] === $_POST){
         if ($nome = "" ??, ||
-        $energia >= 100 ||
-        $potencia >= 15) {
-            if ($robo = class Explorador) {
-                
+        $potencia >= 15, ||
+        $energia >= 100) {
+            if ($robo = class explorador){
+                operar()
+            } elseif ($robo class engenheiro){
+                operar()
+            } elseif ($robo = class defensor){
+                operar()
             }
         }
-
-    
-    
-    
-    )
-
-
-
+        else{
+            echo "Preencha corretamente"
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
